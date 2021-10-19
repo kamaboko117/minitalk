@@ -6,16 +6,14 @@
 /*   By: asaboure <asaboure@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 17:05:52 by asaboure          #+#    #+#             */
-/*   Updated: 2021/10/19 17:15:21 by asaboure         ###   ########.fr       */
+/*   Updated: 2021/10/19 17:56:30 by asaboure         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINITALK_H
 # define MINITALK_H
 
-# define BUFFSIZE 64
-
-typedef struct	s_data
+typedef struct s_data
 {
 	unsigned char		c;
 	int					i;

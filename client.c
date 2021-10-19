@@ -6,7 +6,7 @@
 /*   By: asaboure <asaboure@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 13:41:10 by asaboure          #+#    #+#             */
-/*   Updated: 2021/10/19 17:33:37 by asaboure         ###   ########.fr       */
+/*   Updated: 2021/10/19 17:55:00 by asaboure         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,17 @@ static void	exit_failure(char *error)
 void	sendchar(unsigned char c, int pid)
 {
 	int	i;
-	
+
 	i = 1 << 6;
 	while (i)
 	{
 		if (i & c)
 		{
-			//ft_putnbr_fd(1, 1);
 			if (kill(pid, SIGUSR1) == -1)
 				exit_failure("wrong PID\n");
 		}
 		else
 		{
-			//ft_putnbr_fd(0, 1);
 			if (kill(pid, SIGUSR2) == -1)
 				exit_failure("wrong PID\n");
 		}
@@ -58,12 +56,10 @@ int	main(int argc, char **argv)
 	}
 	pid = ft_atoi(argv[1]);
 	i = 0;
-	while(argv[2][i])
+	while (argv[2][i])
 	{
 		sendchar(argv[2][i], pid);
 		i++;
 	}
 	sendchar(0, pid);
-//	sigaddset(set, SIGUSR1);
-//	sigaction(SIGUSR1, q);
 }
