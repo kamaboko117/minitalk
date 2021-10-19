@@ -6,7 +6,7 @@
 #    By: asaboure <asaboure@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/21 14:20:20 by asaboure          #+#    #+#              #
-#    Updated: 2021/10/14 20:39:56 by asaboure         ###   ########.fr        #
+#    Updated: 2021/10/18 14:26:47 by asaboure         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,11 @@ NAME	= minitalk
 
 SERVER	= server
 
-SRCS	=	server.c
+CLIENT	= client
+
+SERVERSRCS	=	server.c
+
+CLIENTSRCS	=	client.c
 			
 LIBFTSRCS = ft_memccpy.c														\
 			ft_memchr.c															\
@@ -63,7 +67,9 @@ LIBFTOBJS =${LIBFTSRCS:.c=.o}
 
 BONUSSRCS	=
 
-OBJS	= ${SRCS:.c=.o}
+CLIENTOBJS	= ${CLIENTSRCS:.c=.o}
+
+SERVEROBJS	= ${SERVERSRCS:.c=.o}
 
 BONUSOBJS	= ${BONUSSRCS:.c=.o}
 
@@ -79,8 +85,7 @@ LIBS	=  -L${LIBFT_DIR} -lft
 
 RM		= rm -f
 
-${NAME}:	${LIBFT} ${OBJS}
-	${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBS}
+${NAME}:	${CLIENT} ${SERVER}
 
 .c.o:
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
@@ -88,18 +93,21 @@ ${NAME}:	${LIBFT} ${OBJS}
 ${LIBFT}:
 	@make -sC ./libft -j
 
-${SERVER}:	${LIBFT} ${OBJS}
-	${CC} ${CFLAGS} -o ${SERVER} ${OBJS} ${LIBS}
+${CLIENT}:	${LIBFT} ${CLIENTOBJS}
+	${CC} ${CFLAGS} -o ${CLIENT} ${CLIENTOBJS} ${LIBS}
 
-all:	${SERVER}
+${SERVER}:	${LIBFT} ${SERVEROBJS}
+	${CC} ${CFLAGS} -o ${SERVER} ${SERVEROBJS} ${LIBS}
+
+all:	${NAME}
 
 bonus:
 
 clean:
-	 ${RM} ${OBJS} ${BONUSOBJS}
+	 ${RM} ${CLIENTOBJS} ${SERVEROBJS} ${BONUSOBJS}
 
 fclean:	clean
-	${RM} ${NAME}
+	${RM} ${SERVER} ${CLIENT}
 
 re:		fclean all
 
