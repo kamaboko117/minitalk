@@ -6,7 +6,7 @@
 /*   By: asaboure <asaboure@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 20:03:31 by asaboure          #+#    #+#             */
-/*   Updated: 2021/10/19 17:57:11 by asaboure         ###   ########.fr       */
+/*   Updated: 2021/11/09 18:16:15 by asaboure         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#include <stdio.h>
 static void	exit_failure(char *error)
 {
 	ft_putstr_fd(error, 1);
@@ -28,7 +29,6 @@ void	onebit(int sig, siginfo_t *info, void *context)
 	int	bit;
 
 	(void)context;
-	(void)info;
 	bit = 0;
 	if (sig == SIGUSR1)
 		bit = 1;
@@ -36,26 +36,20 @@ void	onebit(int sig, siginfo_t *info, void *context)
 	if (g_data.i < 0)
 	{
 		if (g_data.c == '\0')
-		{
 			write(1, "\n", 1);
-			write(1, &g_data.c, 1);
-		}
 		else
 			write(1, &g_data.c, 1);
 		g_data.i = 6;
 		g_data.c = 0;
 	}
+	usleep(100);
+	kill(info->si_pid, SIGUSR1);
 }
 
 void	loop(void)
 {
 	while (1)
 	{
-		if (usleep(50000) == 0)
-		{
-			g_data.c = 0;
-			g_data.i = 6;
-		}
 		pause();
 	}
 }

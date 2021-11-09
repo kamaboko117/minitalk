@@ -6,7 +6,7 @@
 /*   By: asaboure <asaboure@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 17:05:52 by asaboure          #+#    #+#             */
-/*   Updated: 2021/10/19 17:56:30 by asaboure         ###   ########.fr       */
+/*   Updated: 2021/11/09 18:03:18 by asaboure         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,8 @@ typedef struct s_data
 {
 	unsigned char		c;
 	int					i;
-	int					bit_head;
-	int					byte_head;
-	int					all_receive;
-	int					buff_overflow;
 }				t_data;
 
-t_data	g_data = {'0', 6, 1 << 6, 0, 0, 0};
+t_data	g_data = {0, 6};
 
 #endif

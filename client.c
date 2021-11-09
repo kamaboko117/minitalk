@@ -6,7 +6,7 @@
 /*   By: asaboure <asaboure@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 13:41:10 by asaboure          #+#    #+#             */
-/*   Updated: 2021/10/19 17:55:00 by asaboure         ###   ########.fr       */
+/*   Updated: 2021/11/09 18:17:30 by asaboure         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,14 @@ void	sendchar(unsigned char c, int pid)
 				exit_failure("wrong PID\n");
 		}
 		i >>= 1;
-		usleep(1000);
+		pause();
+		usleep(100);
 	}
+}
+
+void	ignore(int sig)
+{
+	(void)sig;
 }
 
 int	main(int argc, char **argv)
@@ -54,6 +60,7 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("wrong number of arguments\n", 1);
 		return (-1);
 	}
+	signal(SIGUSR1, ignore);
 	pid = ft_atoi(argv[1]);
 	i = 0;
 	while (argv[2][i])
