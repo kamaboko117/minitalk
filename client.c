@@ -6,7 +6,7 @@
 /*   By: asaboure <asaboure@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 13:41:10 by asaboure          #+#    #+#             */
-/*   Updated: 2021/11/12 18:36:53 by asaboure         ###   ########.fr       */
+/*   Updated: 2021/11/09 18:17:30 by asaboure         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	sendchar(unsigned char c, int pid)
 		}
 		i >>= 1;
 		pause();
+		usleep(100);
 	}
 }
 
@@ -49,7 +50,6 @@ void	ignore(int sig)
 	(void)sig;
 }
 
-// protect if pid = -1
 int	main(int argc, char **argv)
 {
 	int	pid;
