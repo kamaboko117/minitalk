@@ -41,7 +41,7 @@ void	onebit(int sig, siginfo_t *info, void *context)
 		g_data.i = 6;
 		g_data.c = 0;
 	}
-	usleep(100);
+	usleep(500);
 	kill(info->si_pid, SIGUSR1);
 }
 

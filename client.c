@@ -40,8 +40,8 @@ void	sendchar(unsigned char c, int pid)
 				exit_failure("wrong PID\n");
 		}
 		i >>= 1;
-		pause();
-		usleep(100);
+		if (sleep(2) == 0)
+			exit_failure("error\nlost signal");
 	}
 }
 
