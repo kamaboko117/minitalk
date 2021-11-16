@@ -23,21 +23,50 @@ static void	exit_failure(char *error)
 	exit(1);
 }
 
+char	*ft_strjoinchar(char *s1, char const c)
+{
+	char	*ret;
+	size_t	i;
+
+	if (s1 == NULL || c == 0)
+		return (NULL);
+	ret = (char *)malloc(sizeof(char) * ft_strlen(s1) + 2);
+	if (!ret)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		ret[i] = s1[i];
+		i++;
+	}
+	free(s1);
+	ret[i] = c;
+	i++;
+	ret[i] = '\0';
+	return (ret);
+}
+
 void	onebit(int sig, siginfo_t *info, void *context)
 {
 	int	bit;
 
 	(void)context;
 	bit = 0;
+	if (g_data.str == NULL)
+		g_data.str = ft_strdup("");
 	if (sig == SIGUSR1)
 		bit = 1;
 	g_data.c |= (bit << g_data.i--);
 	if (g_data.i < 0)
 	{
 		if (g_data.c == '\0')
-			write(1, "\n", 1);
+		{
+			ft_putendl_fd(g_data.str, 1);
+			free(g_data.str);
+			g_data.str = NULL;
+		}
 		else
-			write(1, &g_data.c, 1);
+			g_data.str = ft_strjoinchar(g_data.str, g_data.c);
 		g_data.i = 6;
 		g_data.c = 0;
 	}
@@ -60,6 +89,7 @@ int	main(void)
 
 	onebit_act.sa_sigaction = onebit;
 	onebit_act.sa_flags = SA_SIGINFO;
+	sigemptyset(&onebit_act.sa_mask);
 	if (sigaction(SIGUSR1, &onebit_act, NULL) != 0)
 		exit_failure("signal error\n");
 	if (sigaction(SIGUSR2, &onebit_act, NULL) != 0)

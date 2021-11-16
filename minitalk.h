@@ -15,10 +15,11 @@
 
 typedef struct s_data
 {
-	unsigned char		c;
-	int					i;
+	char	c;
+	char	*str;
+	int		i;
 }				t_data;
 
-t_data	g_data = {0, 6};
+t_data	g_data = {0, NULL, 6};
 
 #endif
