@@ -6,7 +6,7 @@
 /*   By: asaboure <asaboure@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 13:41:10 by asaboure          #+#    #+#             */
-/*   Updated: 2021/11/09 18:17:30 by asaboure         ###   ########.fr       */
+/*   Updated: 2021/11/23 12:55:40 by asaboure         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ int	main(int argc, char **argv)
 	}
 	signal(SIGUSR1, ignore);
 	pid = ft_atoi(argv[1]);
+	if (pid < 1)
+	{
+		ft_putstr_fd("Error\nPID not allowed\n", 1);
+		return (-1);
+	}
 	i = 0;
 	while (argv[2][i])
 	{
